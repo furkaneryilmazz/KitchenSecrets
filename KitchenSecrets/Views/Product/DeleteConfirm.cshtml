@@ -1,0 +1,18 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "DeleteConfirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <p>
+        @Model.Name isimli ürünü silmek istediğinize emin misiniz?
+        <form action="" method="post">
+            <input type="hidden" asp-for="@Model.ProductId"/>
+            <button class="btn btn-danger">Evet</button>
+            <a href="/Product/Index" class="btn btn-secondary">Hayır</a>
+        </form>
+    </p>
+</div>
+
