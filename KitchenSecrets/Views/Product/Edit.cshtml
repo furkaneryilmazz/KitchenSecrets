@@ -20,17 +20,17 @@
     </div>
     <div class="mb-3">
         <label asp-for="Material" class="form-label"></label>
-        <input asp-for="Material" type="text" class="form-control" />
+        <textarea asp-for="Material" type="text" rows="5" class="form-control"></textarea>
         <span asp-validation-for="Material"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Description" class="form-label"></label>
-        <input asp-for="Description" type="text" class="form-control" />
+        <textarea asp-for="Description" type="text" rows="5" class="form-control"></textarea>
         <span asp-validation-for="Description"></span>
     </div>
     <div class="mb-3">
         <label asp-for="ShortDescription" class="form-label"></label>
-        <input asp-for="ShortDescription" type="text" class="form-control" />
+        <textarea asp-for="ShortDescription" type="text" rows="5" class="form-control"></textarea>
         <span asp-validation-for="ShortDescription"></span>
     </div>
     <div class="input-group mb-3">
@@ -52,6 +52,11 @@
         <input type="checkbox" asp-for="TrendFood" class="form-check-input" />
         <label asp-for="TrendFood" class="form-check-label"></label>
         <span asp-validation-for="TrendFood"></span>
+    </div>
+    <div class="mb-3">
+        <input type="checkbox" asp-for="IsActive" class="form-check-input" />
+        <label asp-for="IsActive" class="form-check-label"></label>
+        <span asp-validation-for="IsActive"></span>
     </div>
     <button type="submit" class="btn btn-secondary">Kaydet</button>
 </form>

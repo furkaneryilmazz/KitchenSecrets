@@ -4,21 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 
 namespace KitchenSecrets.Controllers
 {
     public class ProductController : Controller
     {
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProductController(DataContext context)
+        public ProductController(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index(string searchString, string category)
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Products.Include(a=>a.User).Where(x=> x.IsActive).ToListAsync();
             if (!String.IsNullOrEmpty(searchString))
             {
                 ViewBag.SearchString = searchString;
@@ -40,36 +43,65 @@ namespace KitchenSecrets.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> ProductUserIndex()
+        {
+            var userIdString = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            if(int.TryParse(userIdString, out int userId))
+            {
+                var products = await _context.Products.Where(p => p.UserId == userId).ToListAsync();
+                return View(products);
+            }
+            return RedirectToAction("Login", "Login");
+        }
+
+
+
         public async Task<IActionResult> Detail(int? id)
         {
-            var products = await _context.Products.Include(y => y.Category).FirstOrDefaultAsync(x => x.ProductId == id);
+            var products = await _context.Products.Include(y => y.Category).Include(a => a.Comments).Include(z => z.Comments).ThenInclude(x=>x.User).FirstOrDefaultAsync(x => x.ProductId == id);
             return View(products);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
             ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(Product product, IFormFile imageFile)
         {
-            var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
+            // Kullanıcının giriş yapıp yapmadığını kontrol et
+            var userIdString = HttpContext.Session.GetString("UserId");
+            if (userIdString == null || !int.TryParse(userIdString, out int userId))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            product.UserId = userId;
+
+            // Resim uzantılarını kontrol et
+            var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
             if (imageFile != null)
             {
-                var extensions = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
-                if (!allowenExtensions.Contains(extensions))
+                var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+                if (!allowedExtensions.Contains(extension))
                 {
-                    ModelState.AddModelError("", "Geçerli bir resim giriniz!");
+                    ModelState.AddModelError("", "Geçerli bir resim formatı seçiniz!");
                 }
                 else
                 {
-                    var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extensions}");
+                    var randomFileName = $"{Guid.NewGuid()}{extension}";
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
 
                     try
                     {
+                        // Resmi dosya sistemine kaydet
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await imageFile.CopyToAsync(stream);
@@ -78,7 +110,6 @@ namespace KitchenSecrets.Controllers
                     }
                     catch
                     {
-
                         ModelState.AddModelError("", "Resim yüklenirken bir hata oluştu!");
                     }
                 }
@@ -95,14 +126,20 @@ namespace KitchenSecrets.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Kategori verilerini ViewBag'e ekle ve View'ı döndür
             ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             return View(product);
-
         }
+
 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -119,6 +156,11 @@ namespace KitchenSecrets.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Product model, IFormFile? imageFile)
         {
+            if (HttpContext.Session.GetString("UserId") ==null)
+            {
+                return RedirectToAction("Index");
+            }
+
             var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
             if (imageFile != null)
             {
@@ -182,6 +224,11 @@ namespace KitchenSecrets.Controllers
 
         public IActionResult Delete(int? id)
         {
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             if (id == null)
             {
                 return NotFound();

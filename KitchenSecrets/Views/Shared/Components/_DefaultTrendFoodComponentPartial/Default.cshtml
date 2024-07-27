@@ -5,7 +5,7 @@
 }
 
 <br />
-<h2 id="dealOfTheDay" class="text-center my-4">Trend Yemekler</h2>
+<h2 id="trendFood" class="text-center my-4">Trend Yemekler</h2>
 <div class="row justify-content-between">
     @foreach (var item in Model)
     {
@@ -14,7 +14,7 @@
                 <img src="~/img/@item.Image" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@item.Name">
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">@((item.ShortDescription?.Length > 100 ? item.ShortDescription.Substring(0, 100) + "..." : item.Description))</p>
+                    <p class="card-text">@((item.ShortDescription?.Length > 80 ? item.ShortDescription.Substring(0, 80) + "..." : item.Description))</p>
                     <a href="/Product/Detail/@item.ProductId" class="btn btn-primary w-100">Tarife Git</a>
                 </div>
             </div>

@@ -18,7 +18,7 @@ namespace KitchenSecrets.Data
         public bool IsActive { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; } = null!;
+        public User? User { get; set; } = null!;
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
 

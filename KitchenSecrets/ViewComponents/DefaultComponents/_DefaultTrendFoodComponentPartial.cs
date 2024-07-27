@@ -15,7 +15,7 @@ namespace KitchenSecrets.ViewComponents.DefaultComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var products = await _context.Products.Where(x=> x.TrendFood).Take(3).ToListAsync();
+            var products = await _context.Products.Where(x=> x.TrendFood).OrderByDescending(y=>y.ProductId).Take(3).ToListAsync();
             return View(products);
         }
     }

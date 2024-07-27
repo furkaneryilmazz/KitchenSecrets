@@ -4,9 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+@await Component.InvokeAsync("_DefaultSliderComponentPartial")
 <div class="container">
     
-    @await Component.InvokeAsync("_DefaultSliderComponentPartial")
+    
 
     @await Component.InvokeAsync("_DefaultDealOfTheDayComponentPartial")
 

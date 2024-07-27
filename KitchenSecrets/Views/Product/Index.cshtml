@@ -5,6 +5,11 @@
 
 @* Buraya Select Gelecek *@
 
+@{
+    var isAdmin = HttpContextAccessor.HttpContext.Session.GetString("IsAdmin") == "True";
+    var userId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+
 <div class="card card-body my-3 shadow-sm">
     <form asp-action="Index" method="get">
         <div class="container">
@@ -28,18 +33,21 @@
     @foreach (var item in Model.Products)
     {
         <div class="col-4 mb-4 d-flex justify-content-center">
-            <div class="card mt-3" style="width: 18rem;">
-                <img style="height:150px;" src="~/img/@item.Image" class="card-img-top" alt="...">
+            <div class="card mt-3 shadow-sm border-0" style="width: 18rem; border-radius: 15px;">
+                <img style="height:150px; border-top-left-radius: 15px; border-top-right-radius: 15px;" src="~/img/@item.Image" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">@((item.ShortDescription?.Length > 100 ? item.ShortDescription.Substring(0, 100) + "..." : item.Description))</p>
+                    <p class="card-text">@((item.ShortDescription?.Length > 80 ? item.ShortDescription.Substring(0, 80) + "..." : item.Description))</p>
                     <a href="/Product/Detail/@item.ProductId" class="btn btn-primary">Tarife Git</a>
-                    <div class="row mt-2">
-                        <div class="col-md-12 d-flex">
-                            <a class="btn btn-secondary me-2" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
-                            <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    @if (isAdmin)
+                    {
+                        <div class="row mt-2">
+                            <div class="col-md-12 d-flex">
+                                <a class="btn btn-secondary me-2" asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                                <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
