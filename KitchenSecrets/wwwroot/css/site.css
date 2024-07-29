@@ -1,28 +1,306 @@
+/* Genel stil ayarlarý */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
     margin-bottom: 60px;
-    /*background-color: #80ced6;*/
+    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
 }
 
-.avatar{
+/* Navbar stil güncellemeleri */
+.navbar {
+    background-color: #cc2e38;
+    border-bottom: 1px solid #444;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .navbar-brand:hover {
+        color: #ff6f61;
+        text-decoration: none;
+    }
+
+.navbar-nav .nav-link {
+    color: #ffffff; /* Yazý rengi */
+    font-weight: 600; /* Yazý kalýnlýðý */
+    font-size: 1.1rem; /* Yazý boyutu */
+    padding: 10px 15px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .navbar-nav .nav-link.active {
+        color: #ffffff;
+        background-color: #ff6f61;
+        border-bottom: 2px solid #ffffff;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #ffffff;
+        background-color: #e84e40;
+    }
+
+
+.navbar-toggler {
+    border: none;
+    background-color: transparent;
+}
+
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="none" stroke="%23ffffff" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"%3E%3C/path%3E%3C/svg%3E');
+}
+
+/* Arama formu stil ayarlarý */
+.form-control {
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+}
+
+.search-button {
+    border-radius: 30px;
+    background-color: #ff6f61;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .search-button:hover {
+        background-color: #e84e40;
+        transform: scale(1.05);
+    }
+
+/* Odaklanma ve aktif durum efektleri */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.125), 0 0 0 0.25rem #258cfb;
+}
+
+/* Modern ve minimalist baþlýk stili */
+.header-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+    .header-title strong {
+        color: #ff6f61; /* 'Tarifi Nasýl Yapýlýr?' kýsmýnýn rengi */
+    }
+
+    .header-title::after {
+        content: none; 
+    }
+
+/* Diðer baþlýk stilleri üzerinde etkisi olmasýn */
+#dealOfTheDay ,#trendFood {
+    color: #ff6f61; /* Baþlýk rengini deðiþtir */
+    border-bottom: 2px solid #ff6f61; /* Alt çizgi rengi */
+}
+
+.recipe-title {
+    background: linear-gradient(to right, #ff6f61, #e84e40);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.no-underline::after {
+    content: none; /* Çizgiyi kaldýr */
+}
+
+/* Avatar stili */
+.avatar {
     width: 100px;
     height: 100px;
+    border-radius: 50%;
 }
+
+/* Buton stili */
+.btn {
+    padding: .55rem 1.5rem .45rem;
+    border-radius: 25px;
+}
+
+/* Özel buton stili */
+.btn-primary-custom {
+    background-color: #ff6f61;
+    border: none;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .btn-primary-custom:hover {
+        background-color: #e84e40;
+        transform: translateY(-2px); /* Hover efekti */
+    }
+
+    .btn-primary-custom:focus,
+    .btn-primary-custom:active {
+        background-color: #e84e40;
+        border-color: #e84e40;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transform: scale(1);
+    }
+
+
+
+/* Container stil ayarlarý */
+.my-container {
+    background-color: #f0f0f0;
+    padding-top: 65px;
+}
+
+/* Gradient stil */
+.gradient-custom {
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+}
+
+/* Resim stil ayarlarý */
+.recipe-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px; /* Hafif yuvarlatýlmýþ köþeler */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hafif gölge */
+}
+
+/* Baþlýk stili */
+.recipe-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem; /* Büyük baþlýk */
+    color: #444;
+    margin: 1rem 0; /* Boþluklarý azalt */
+}
+
+/* Kart içindeki baþlýk stili */
+.card-body .card-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem; /* Kart içindeki baþlýk font boyutu */
+    color: #333;
+    margin-bottom: 1rem; /* Baþlýk ve açýklama arasýna boþluk ekleme */
+}
+
+/* Kartýn içeriði esnek olmalý */
+.card-body {
+    flex: 1;
+}
+
+.row.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Kart stili */
+.card-custom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 15px; /* Daha yuvarlak köþeler */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Hafif gölge */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card-custom:hover {
+        transform: translateY(-10px); /* Hover efekti */
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+
+/* Yorumlar bölümü stili */
+.comments-section {
+    background-color: #ffffff; /* Beyaz arka plan */
+    border-radius: 10px; /* Yuvarlatýlmýþ köþeler */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Hafif gölge */
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+    .comments-section .comment {
+        border-bottom: 1px solid #ddd;
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
+    }
+
+        .comments-section .comment:last-child {
+            border-bottom: none;
+        }
+
+    .comments-section h4 {
+        margin-top: 20px;
+        color: #444;
+    }
+
+/* Modern Select Stili */
+.custom-select-container {
+    position: relative; /* Ýç içe pozisyonlandýrma */
+    display: inline-block;
+    width: 100%; /* Geniþlik */
+}
+
+.custom-select {
+    background-color: #ffffff; /* Beyaz arka plan */
+    border: 1px solid #ddd; /* Hafif gri kenar */
+    border-radius: 25px; /* Oval kenarlar */
+    padding: 0.5rem 1.5rem; /* Ýç boþluk */
+    font-size: 1rem; /* Font boyutu */
+    color: #333; /* Yazý rengi */
+    appearance: none; /* Varsayýlan görünümü kaldýr */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Geçiþ efektleri */
+    cursor: pointer; /* Ýmleç deðiþimi */
+    width: 100%; /* Geniþlik */
+}
+
+    .custom-select:focus {
+        border-color: #ff6f61; /* Seçili durumda kenar rengi */
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1); /* Hafif gölge */
+        outline: none; /* Varsayýlan kenarlýk */
+    }
+
+/* Özel notlar */
+textarea.form-control {
+    resize: vertical;
+    min-height: 150px; /* Yükseklik */
+}
+
+h2 {
+    font-size: 2rem; /* Baþlýk font boyutu */
+    font-weight: 700; /* Kalýn yazý */
+    color: #444; /* Baþlýk rengi */
+    margin-bottom: 1rem; /* Alt boþluk */
+}
+

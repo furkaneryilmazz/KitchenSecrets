@@ -10,19 +10,11 @@
     <title>Login</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="~/css/site.css" rel="stylesheet"/>
 
     <!-- Optional Bootstrap theme -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap-theme.min.css">
-    <style>
-        .gradient-custom {
-            /* fallback for old browsers */
-            background: #6a11cb;
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
-        }
-    </style>
+
 </head>
 <body>
     <section class="vh-100 gradient-custom">
@@ -46,10 +38,6 @@
                                     <div data-mdb-input-init class="form-outline form-white mb-4">
                                         <label class="form-label" for="password">Password:</label>
                                         <input type="password" id="password" name="password" class="form-control form-control-lg" required />
-                                    </div>
-                                    <div data-mdb-input-init class="form-outline form-white mb-4">
-                                        <label class="form-label" for="IsAdmin">Yönetici mi?</label>
-                                        <input type="checkbox" id="IsAdmin" name="IsAdmin" class="form-control form-control-lg" />
                                     </div>
                                     <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Kayıt Ol</button>
                                 </form>
